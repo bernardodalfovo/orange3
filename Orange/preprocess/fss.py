@@ -77,6 +77,7 @@ class SelectBestFeatures(Reprable):
             scores = method(data)
         except ValueError:
             scores = self.score_only_nice_features(data, method)
+        scores = np.nan_to_num(scores, nan=float('-inf'))
         best = sorted(zip(scores, features), key=itemgetter(0),
                       reverse=self.decreasing)
         if self.k:
